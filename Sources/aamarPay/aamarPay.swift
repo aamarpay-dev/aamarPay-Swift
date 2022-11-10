@@ -21,4 +21,8 @@ public class aamarPay: UIViewController {
         super.viewDidLayoutSubviews()
         webView.frame = view.bounds
     }
+    
+    public func pay(){
+        print("Payment hit")
+    }
 }
