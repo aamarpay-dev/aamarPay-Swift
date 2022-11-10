@@ -4,10 +4,10 @@ import UIKit
 
 #endif
 import WebKit
-public class aamarPay: UIViewController {
+open class aamarPay: UIViewController {
    let webView = WKWebView()
    
-    override public func viewDidLoad(){
+    override open func viewDidLoad(){
         super.viewDidLoad()
         view?.addSubview(webView)
         
@@ -17,7 +17,7 @@ public class aamarPay: UIViewController {
         webView.load(URLRequest(url: url))
     }
     
-    override public func viewDidLayoutSubviews(){
+    override open func viewDidLayoutSubviews(){
         super.viewDidLayoutSubviews()
         webView.frame = view.bounds
     }
