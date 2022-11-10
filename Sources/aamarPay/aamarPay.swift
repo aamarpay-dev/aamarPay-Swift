@@ -1,9 +1,24 @@
+#if canImport(UIKit)
 
+import UIKit
+
+#endif
 import WebKit
-public struct aamarPay {
-    public private(set) var text = "Hello, World!"
-
-    public func pay()-> String {
-        return "Hello Swift!"
+public class aamarPay: UIViewController {
+   let webView = WKWebView()
+   
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        view?.addSubview(webView)
+        
+        guard let url = URL(string: "https://google.com") else {
+            return
+        }
+        webView.load(URLRequest(url: url))
+    }
+    
+    override func viewDidLayoutSubviews(){
+        super.viewDidLayoutSubviews()
+        webView.frame= view.bounds
     }
 }
