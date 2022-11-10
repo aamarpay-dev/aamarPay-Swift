@@ -6,7 +6,8 @@ import UIKit
 import WebKit
 open class aamarPay: UIViewController {
    let webView = WKWebView()
-   
+    public static let screen = UIStoryboard(name: “aamarPay”, bundle: Bundle.module).instantiateInitialViewController()!
+
     override open func viewDidLoad(){
         super.viewDidLoad()
         view?.addSubview(webView)
