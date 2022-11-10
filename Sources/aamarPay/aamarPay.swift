@@ -19,6 +19,6 @@ public class aamarPay: UIViewController {
     
     override func viewDidLayoutSubviews(){
         super.viewDidLayoutSubviews()
-        webView.frame= view.bounds
+        webView.frame = view.bounds
     }
 }
