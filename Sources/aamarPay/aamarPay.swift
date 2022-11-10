@@ -1,5 +1,6 @@
 
-public struct aamarPay_Swift {
+import WebKit
+public struct aamarPay {
     public private(set) var text = "Hello, World!"
 
     public func pay()-> String {

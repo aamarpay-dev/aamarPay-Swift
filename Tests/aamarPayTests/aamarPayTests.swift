@@ -1,11 +1,11 @@
 import XCTest
-@testable import aamarPay_Swift
+@testable import aamarPay
 
-final class aamarPay_SwiftTests: XCTestCase {
+final class aamarPayTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(aamarPay_Swift().text, "Hello, World!")
+        XCTAssertEqual(aamarPay().text, "Hello, World!")
     }
 }
