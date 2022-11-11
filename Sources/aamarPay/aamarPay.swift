@@ -7,7 +7,7 @@ import WebKit
 open class aamarPay: UIViewController {
        
     let webView = WKWebView()
-    public static let screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()!
+    public let screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()!
 
     override open func viewDidLoad(){
         super.viewDidLoad()
@@ -32,8 +32,8 @@ open class aamarPay: UIViewController {
            
             
             if(webView.url!.absoluteString.contains("aamarpay")){
-                let vc = aamarPay.screen
-                vc.dismiss(animated: true,completion: nil)
+                
+                screen.dismiss(animated: true,completion: nil)
             }
             
             print("current url \(webView.url?.absoluteString)")
@@ -41,7 +41,7 @@ open class aamarPay: UIViewController {
        
     }
     
-    public func pay(screen:UIViewController){
+    public func pay(){
        
         present(screen, animated: true, completion: nil)
     }
