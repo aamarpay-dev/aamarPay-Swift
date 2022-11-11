@@ -16,9 +16,8 @@ open class aamarPay: UIViewController {
         guard let url = URL(string: "https://google.com") else {
             return
         }
-        webView.load(URLRequest(url: url))
         webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
-
+        webView.load(URLRequest(url: url))
         
     }
     
@@ -26,16 +25,23 @@ open class aamarPay: UIViewController {
     override open func viewDidLayoutSubviews(){
         super.viewDidLayoutSubviews()
         webView.frame = view.bounds
-         webView.observe(\.url, options: .new, changeHandler: {
-                (currentWebView, _) in
-                //      Here you go the new path
-            print("current url \(currentWebView.url)")
-            })
     }
     
-   
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if let key = change?[NSKeyValueChangeKey.newKey] {
+           
+            
+            if(webView.url!.absoluteString.contains("aamarpay")){
+                let vc = aamarPay.screen
+                vc.dismiss(animated: true)
+            }
+            
+            print("current url \(webView.url?.absoluteString)")
+           }
+    }
     
     public func pay(){
-        print("current hit \(webView.url)")
+        let vc = aamarPay.screen
+        present(vc, animated: true, completion: nil)
     }
 }
