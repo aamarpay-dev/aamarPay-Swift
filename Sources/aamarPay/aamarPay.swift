@@ -38,10 +38,11 @@ open class aamarPay: UIViewController {
             
             print("current url \(webView.url?.absoluteString)")
            }
+       
     }
     
-    public func pay(){
-        let vc = aamarPay.screen
-        present(vc, animated: true, completion: nil)
+    public func pay(screen:UIViewController){
+       
+        present(screen, animated: true, completion: nil)
     }
 }
