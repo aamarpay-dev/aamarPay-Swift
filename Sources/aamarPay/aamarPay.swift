@@ -5,7 +5,8 @@ import UIKit
 #endif
 import WebKit
 open class aamarPay: UIViewController {
-   let webView = WKWebView()
+       
+    let webView = WKWebView()
     public static let screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()!
 
     override open func viewDidLoad(){
@@ -16,14 +17,25 @@ open class aamarPay: UIViewController {
             return
         }
         webView.load(URLRequest(url: url))
+        webView.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
+
+        
     }
+    
     
     override open func viewDidLayoutSubviews(){
         super.viewDidLayoutSubviews()
         webView.frame = view.bounds
+         webView.observe(\.url, options: .new, changeHandler: {
+                (currentWebView, _) in
+                //      Here you go the new path
+            print("current url \(currentWebView.url)")
+            })
     }
     
+   
+    
     public func pay(){
-        print("Payment hit")
+        print("current hit \(webView.url)")
     }
 }
