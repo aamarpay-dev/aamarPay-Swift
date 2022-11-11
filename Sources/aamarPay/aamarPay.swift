@@ -33,7 +33,7 @@ open class aamarPay: UIViewController {
             
             if(webView.url!.absoluteString.contains("aamarpay")){
                 let vc = aamarPay.screen
-                vc.dismiss(animated: true)
+                vc.dismiss(animated: true,completion: nil)
             }
             
             print("current url \(webView.url?.absoluteString)")
