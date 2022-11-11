@@ -32,8 +32,8 @@ open class aamarPay: UIViewController {
            
             
             if(webView.url!.absoluteString.contains("aamarpay")){
-                
-                screen.dismiss(animated: true,completion: nil)
+                let vc = aamarPay.screen
+                vc.dismiss(animated: true,completion: nil)
             }
             
             print("current url \(webView.url?.absoluteString)")
@@ -41,8 +41,7 @@ open class aamarPay: UIViewController {
        
     }
     
-    public func pay(){
-       
-        present(screen, animated: true, completion: nil)
+    public func pay(parent:UIViewController){
+        parent.present(aamarPay.screen, animated: true, completion: nil)
     }
 }
