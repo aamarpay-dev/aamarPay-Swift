@@ -17,7 +17,7 @@ open class aamarPay: UIViewController {
     let customerEmail:String
     let customerNumber:String
     let desc:String
-    private var paymentCompletation: ((String) -> Void)?
+    private var paymentCompletation: ((PaymentResponse) -> Void)?
     private var webView : WKWebView?
     private static var screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
     public required init(nibName nibNameOrNil: String?=nil, bundle nibBundleOrNil: Bundle?=nil, isSandbox:Bool = true,storeId:String, successUrl:String,failUrl:String,cancelUrl:String, signatureKey:String,transactionId:String,amount:String,customerName:String = "Unknown",customerEmail:String = "nomail@mail.com",description:String = "N/A", customerNumber:String ) {
@@ -71,13 +71,11 @@ open class aamarPay: UIViewController {
     override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let key = change?[NSKeyValueChangeKey.newKey] {
             if(webView!.url!.absoluteString.contains(successUrl)||webView!.url!.absoluteString.contains(cancelUrl)||webView!.url!.absoluteString.contains(failUrl)){
-                paymentCompletation!("Done")
+                paymentCompletation!(PaymentResponse(redirectUrl: webView!.url!.absoluteString))
                 let vc = aamarPay.screen
                 vc?.dismiss(animated: true,completion: {
                     aamarPay.screen = nil;
                 })
-                print("current url \(webView!.url?.absoluteString)")
-               
             }
            }
        
@@ -172,4 +170,12 @@ extension String {
         }
         return nil
     }
+}
+
+public struct PaymentResponse{
+    var redirectUrl : String?
+    var payemntStatus : String  = "Initial"
+    var isSuccess : Bool = false
+    var message : String?
+    
 }
