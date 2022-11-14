@@ -81,7 +81,7 @@ open class aamarPay: UIViewController {
     public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
-              let mainstoryboard:UIStoryboard = UIStoryboard(name: "amarPay", bundle: nil)
+              let mainstoryboard:UIStoryboard = UIStoryboard(name: "amarPay", bundle: Bundle.module)
               let paymentController = mainstoryboard.instantiateViewController(withIdentifier: "amarPay") as! aamarPay
               paymentController.paymentUrl = self.paymentUrl
               paymentController.successUrl = self.successUrl
