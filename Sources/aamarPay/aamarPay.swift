@@ -80,7 +80,7 @@ open class aamarPay: UIViewController {
            }
        
     }
-    public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
+    public func pay(parent:UIViewController,completion: @escaping (PaymentResponse) -> Void){
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
@@ -99,7 +99,7 @@ open class aamarPay: UIViewController {
    private let _productionUrl = "https://secure.aamarpay.com";
    private var paymentUrl = ""
     
-    func parsePaymentLink( completion: @escaping (PaymentResponse) -> Void) {
+    func parsePaymentLink( completion: @escaping (String) -> Void) {
      let payLoad = [
          "store_id": "\(self.storeId)",
          "tran_id": self.transactionId,
