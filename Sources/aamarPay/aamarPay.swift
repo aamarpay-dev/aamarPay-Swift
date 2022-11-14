@@ -19,7 +19,7 @@ open class aamarPay: UIViewController {
     let desc:String
     private var paymentCompletation: ((String) -> Void)?
     private var webView : WKWebView?
-    private static let screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
+    private static var screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
     public required init(nibName nibNameOrNil: String?=nil, bundle nibBundleOrNil: Bundle?=nil, isSandbox:Bool = true,storeId:String, successUrl:String,failUrl:String,cancelUrl:String, signatureKey:String,transactionId:String,amount:String,customerName:String = "Unknown",customerEmail:String = "nomail@mail.com",description:String = "N/A", customerNumber:String ) {
         self.isSandbox = isSandbox
         self.storeId = storeId
