@@ -88,7 +88,7 @@ open class aamarPay: UIViewController {
               aamarPay.screen.failUrl = self.failUrl
               aamarPay.screen.cancelUrl = self.cancelUrl
               aamarPay.screen.webView = WKWebView()
-              let paymentFrontController = UINavigationController.init(rootViewController: paymentController)
+              let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen)
               aamarPay.screen.paymentCompletation = completion
               parent.present(paymentFrontController, animated: true, completion: nil)
           }
