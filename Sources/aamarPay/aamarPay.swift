@@ -86,7 +86,7 @@ open class aamarPay: UIViewController {
            }
        
     }
-    public func pay(parent:UIViewController,completion: @escaping (PaymentResponse) -> Void){
+    public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
@@ -137,7 +137,6 @@ open class aamarPay: UIViewController {
                       let responseModel = String(decoding: data!, as: UTF8.self)
                       let test  = responseModel.convertToDictionary()
                       self.paymentUrl = test!["payment_url"] as! String
-                      print("Api call done \(self.paymentUrl) ")
                       completion("Success")
                   } catch {
                       completion("Failed")
