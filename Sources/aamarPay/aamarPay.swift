@@ -99,7 +99,7 @@ open class aamarPay: UIViewController {
    private let _productionUrl = "https://secure.aamarpay.com";
    private var paymentUrl = ""
     
-    func parsePaymentLink( completion: @escaping (String) -> Void) {
+    func parsePaymentLink( completion: @escaping (PaymentResponse) -> Void) {
      let payLoad = [
          "store_id": "\(self.storeId)",
          "tran_id": self.transactionId,
