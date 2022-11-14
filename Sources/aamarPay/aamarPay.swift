@@ -82,13 +82,13 @@ open class aamarPay: UIViewController {
     public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
-              screen.paymentUrl = self.paymentUrl
-              screen.successUrl = self.successUrl
-              screen.failUrl = self.failUrl
-              screen.cancelUrl = self.cancelUrl
-              screen.webView = WKWebView()
-              let paymentFrontController = UINavigationController.init(rootViewController: screen)
-              screen.paymentCompletation = completion
+              self.screen.paymentUrl = self.paymentUrl
+              self.screen.successUrl = self.successUrl
+              self.screen.failUrl = self.failUrl
+              self.screen.cancelUrl = self.cancelUrl
+              self.screen.webView = WKWebView()
+              let paymentFrontController = UINavigationController.init(rootViewController: self.screen)
+              self.screen.paymentCompletation = completion
               parent.present(paymentFrontController, animated: true, completion: nil)
           }
         }
