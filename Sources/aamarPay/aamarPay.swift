@@ -19,7 +19,7 @@ open class aamarPay: UIViewController {
     let desc:String
     private var paymentCompletation: ((String) -> Void)?
     private var webView : WKWebView?
-    private static let screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as! aamarPay
+    private let screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as! aamarPay
     public required init(nibName nibNameOrNil: String?=nil, bundle nibBundleOrNil: Bundle?=nil, isSandbox:Bool = true,storeId:String, successUrl:String,failUrl:String,cancelUrl:String, signatureKey:String,transactionId:String,amount:String,customerName:String = "Unknown",customerEmail:String = "nomail@mail.com",description:String = "N/A", customerNumber:String ) {
         self.isSandbox = isSandbox
         self.storeId = storeId
@@ -82,14 +82,13 @@ open class aamarPay: UIViewController {
     public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
-            
-              aamarPay.screen.paymentUrl = self.paymentUrl
-              aamarPay.screen.successUrl = self.successUrl
-              aamarPay.screen.failUrl = self.failUrl
-              aamarPay.screen.cancelUrl = self.cancelUrl
-              aamarPay.screen.webView = WKWebView()
-              let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen)
-              aamarPay.screen.paymentCompletation = completion
+              screen.paymentUrl = self.paymentUrl
+              screen.successUrl = self.successUrl
+              screen.failUrl = self.failUrl
+              screen.cancelUrl = self.cancelUrl
+              screen.webView = WKWebView()
+              let paymentFrontController = UINavigationController.init(rootViewController: screen)
+              screen.paymentCompletation = completion
               parent.present(paymentFrontController, animated: true, completion: nil)
           }
         }
