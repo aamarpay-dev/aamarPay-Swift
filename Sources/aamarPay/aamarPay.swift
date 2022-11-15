@@ -97,7 +97,7 @@ open class aamarPay: UIViewController {
               aamarPay.screen!.webView = WKWebView()
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
-              parent.modalPresentationStyle = .fullScreen
+              aamarPay.screen!.modalPresentationStyle = .fullScreen
               parent.present(paymentFrontController, animated: true, completion: nil)
           }
         }
