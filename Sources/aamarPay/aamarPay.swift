@@ -19,6 +19,7 @@ open class aamarPay: UIViewController {
     let desc:String
     private var paymentCompletation: ((String) -> Void)?
     private var webView : WKWebView?
+    private let = loader()
     private static var screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
     public required init(nibName nibNameOrNil: String?=nil, bundle nibBundleOrNil: Bundle?=nil, isSandbox:Bool = true,storeId:String, successUrl:String,failUrl:String,cancelUrl:String, signatureKey:String,transactionId:String,amount:String,customerName:String = "Unknown",customerEmail:String = "nomail@mail.com",description:String = "N/A", customerNumber:String ) {
         self.isSandbox = isSandbox
@@ -89,6 +90,7 @@ open class aamarPay: UIViewController {
     public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
+             let loader = parent.loader()
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
               aamarPay.screen!.paymentUrl = self.paymentUrl
               aamarPay.screen!.successUrl = self.successUrl
@@ -98,7 +100,9 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true, completion: nil)
+              parent.present(paymentFrontController, animated: true, completion: {
+                stopLoader(loader:loader)
+              })
           }
         }
     }
@@ -143,6 +147,24 @@ open class aamarPay: UIViewController {
                       completion("Failed")
                   }
               }).resume()
+    }
+}
+
+extension UIViewController{
+    func loader()-> UIAlertController{
+        let alert = UIAlertController(title: nil, message:  "Please wait..." , preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.startAnimating()
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true)
+        return alert
+    }
+    
+    func stopLoader(loader:UIAlertController){
+        DispatchQueue.main.async {
+            loader.dismiss(animated: true)
+        }
     }
 }
 
