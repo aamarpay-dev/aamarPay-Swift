@@ -90,6 +90,7 @@ open class aamarPay: UIViewController {
          let loader = parent.loader()
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
+              parent.stopLoader(loader:loader)
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
               aamarPay.screen!.paymentUrl = self.paymentUrl
               aamarPay.screen!.successUrl = self.successUrl
@@ -99,10 +100,7 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.stopLoader(loader:loader)
-              parent.present(paymentFrontController, animated: true, completion: {
-                
-              })
+              parent.present(paymentFrontController, animated: true,)
           }
         }
     }
@@ -162,9 +160,7 @@ extension UIViewController{
     }
     
     func stopLoader(loader:UIAlertController){
-        DispatchQueue.main.async {
-            loader.dismiss(animated: true)
-        }
+         loader.dismiss(animated: true)
     }
 }
 
