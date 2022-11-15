@@ -101,7 +101,7 @@ open class aamarPay: UIViewController {
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
               parent.present(paymentFrontController, animated: true, completion: {
-                stopLoader(loader:loader)
+                parent.stopLoader(loader:loader)
               })
           }
         }
