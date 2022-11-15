@@ -87,9 +87,9 @@ open class aamarPay: UIViewController {
        
     }
     public func pay(parent:UIViewController,completion: @escaping (String) -> Void){
+         let loader = parent.loader()
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
-             let loader = parent.loader()
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
               aamarPay.screen!.paymentUrl = self.paymentUrl
               aamarPay.screen!.successUrl = self.successUrl
@@ -99,8 +99,9 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
+              parent.stopLoader(loader:loader)
               parent.present(paymentFrontController, animated: true, completion: {
-                parent.stopLoader(loader:loader)
+                
               })
           }
         }
