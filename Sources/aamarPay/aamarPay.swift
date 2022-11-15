@@ -100,7 +100,7 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true,)
+              parent.present(paymentFrontController, animated: true)
           }
         }
     }
@@ -160,7 +160,7 @@ extension UIViewController{
     }
     
     func stopLoader(loader:UIAlertController){
-         loader.dismiss(animated: true)
+       loader.dismiss(animated: true)
     }
 }
 
