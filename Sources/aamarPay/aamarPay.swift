@@ -80,9 +80,11 @@ open class aamarPay: UIViewController {
                 }else{
                   paymentCompletation!("Failed")
                 }
-                aamarPay.screen?.parentContext?.dismiss(animated: true,completion: {
-                    aamarPay.screen = nil
-                })
+                let vc = aamarPay.screen
+                    vc?.dismiss(animated: true,completion: {
+                        aamarPay.screen?.parentContext?.dismiss(animated: false)
+                                   aamarPay.screen = nil;
+                               })
             }
            }
        
@@ -91,6 +93,7 @@ open class aamarPay: UIViewController {
          let loader = parent.loader()
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
+              
               aamarPay.screen?.parentContext = parent
               parent.stopLoader(loader:loader)
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
