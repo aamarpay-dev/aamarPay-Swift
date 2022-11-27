@@ -92,17 +92,19 @@ open class aamarPay: UIViewController {
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
               
-//              parent.stopLoader(loader:loader)
-              aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
-              aamarPay.screen!.paymentUrl = self.paymentUrl
-              aamarPay.screen!.successUrl = self.successUrl
-              aamarPay.screen!.failUrl = self.failUrl
-              aamarPay.screen!.cancelUrl = self.cancelUrl
-              aamarPay.screen!.webView = WKWebView()
-              let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
-              aamarPay.screen!.paymentCompletation = completion
-              paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true)
+              parent.dismiss(animated: true,completion: {
+                  aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
+                  aamarPay.screen!.paymentUrl = self.paymentUrl
+                  aamarPay.screen!.successUrl = self.successUrl
+                  aamarPay.screen!.failUrl = self.failUrl
+                  aamarPay.screen!.cancelUrl = self.cancelUrl
+                  aamarPay.screen!.webView = WKWebView()
+                  let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
+                  aamarPay.screen!.paymentCompletation = completion
+                  paymentFrontController.modalPresentationStyle = .fullScreen
+                  parent.present(paymentFrontController, animated: true)
+              })
+              
           }
         }
     }
