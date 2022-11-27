@@ -93,9 +93,6 @@ open class aamarPay: UIViewController {
           DispatchQueue.main.async {
               
               parent.stopLoader(loader:loader)
-              if(parent.isMovingFromParent){
-                  parent.dismiss(animated: false)
-              }
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
               aamarPay.screen!.paymentUrl = self.paymentUrl
               aamarPay.screen!.successUrl = self.successUrl
@@ -105,7 +102,9 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true)
+              parent.present(paymentFrontController, animated: true,completion: {
+                  parent.dismiss(animated: false)
+              })
           }
         }
     }
