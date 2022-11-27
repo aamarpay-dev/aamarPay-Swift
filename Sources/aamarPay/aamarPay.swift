@@ -80,7 +80,7 @@ open class aamarPay: UIViewController {
                 }else{
                   paymentCompletation!("Failed")
                 }
-                parentContext?.dismiss(animated: true,completion: {
+                aamarPay.screen?.parentContext?.dismiss(animated: true,completion: {
                     aamarPay.screen = nil
                 })
             }
