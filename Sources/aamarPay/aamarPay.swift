@@ -102,9 +102,7 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true,completion: {
-                  parent.dismiss(animated: false)
-              })
+              parent.present(paymentFrontController, animated: true)
           }
         }
     }
