@@ -20,7 +20,6 @@ open class aamarPay: UIViewController {
     private var paymentCompletation: ((String) -> Void)?
     private var webView : WKWebView?
     private static var screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
-    private var parentContext : UIViewController?
     public required init(nibName nibNameOrNil: String?=nil, bundle nibBundleOrNil: Bundle?=nil, isSandbox:Bool = true,storeId:String, successUrl:String,failUrl:String,cancelUrl:String, signatureKey:String,transactionId:String,amount:String,customerName:String = "Unknown",customerEmail:String = "nomail@mail.com",description:String = "N/A", customerNumber:String ) {
         self.isSandbox = isSandbox
         self.storeId = storeId
@@ -82,7 +81,6 @@ open class aamarPay: UIViewController {
                 }
                 let vc = aamarPay.screen
                     vc?.dismiss(animated: true,completion: {
-                        aamarPay.screen?.parentContext?.dismiss(animated: false)
                                    aamarPay.screen = nil;
                                })
             }
@@ -94,8 +92,10 @@ open class aamarPay: UIViewController {
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
               
-              aamarPay.screen?.parentContext = parent
               parent.stopLoader(loader:loader)
+              if(parent.isBeingPresented){
+                  parent.dismiss(animated: false)
+              }
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
               aamarPay.screen!.paymentUrl = self.paymentUrl
               aamarPay.screen!.successUrl = self.successUrl
