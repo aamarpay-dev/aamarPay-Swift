@@ -20,6 +20,7 @@ open class aamarPay: UIViewController {
     private var paymentCompletation: ((String) -> Void)?
     private var webView : WKWebView?
     private static var screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
+    private var parentContext : UIViewController?
     public required init(nibName nibNameOrNil: String?=nil, bundle nibBundleOrNil: Bundle?=nil, isSandbox:Bool = true,storeId:String, successUrl:String,failUrl:String,cancelUrl:String, signatureKey:String,transactionId:String,amount:String,customerName:String = "Unknown",customerEmail:String = "nomail@mail.com",description:String = "N/A", customerNumber:String ) {
         self.isSandbox = isSandbox
         self.storeId = storeId
@@ -79,9 +80,8 @@ open class aamarPay: UIViewController {
                 }else{
                   paymentCompletation!("Failed")
                 }
-                let vc = aamarPay.screen
-                vc?.dismiss(animated: true,completion: {
-                    aamarPay.screen = nil;
+                parentContext?.dismiss(animated: true,completion: {
+                    aamarPay.screen = nil
                 })
             }
            }
@@ -91,6 +91,7 @@ open class aamarPay: UIViewController {
          let loader = parent.loader()
       self.parsePaymentLink { Void in
           DispatchQueue.main.async {
+              aamarPay.screen?.parentContext = parent
               parent.stopLoader(loader:loader)
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
               aamarPay.screen!.paymentUrl = self.paymentUrl
@@ -101,9 +102,7 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true,completion: {
-                  parent.dismiss(animated: true)
-              })
+              parent.present(paymentFrontController, animated: true)
           }
         }
     }
