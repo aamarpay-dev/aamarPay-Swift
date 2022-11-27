@@ -93,7 +93,7 @@ open class aamarPay: UIViewController {
           DispatchQueue.main.async {
               
               parent.stopLoader(loader:loader)
-              if(parent.isBeingPresented){
+              if(parent.isMovingFromParent){
                   parent.dismiss(animated: false)
               }
               aamarPay.screen = UIStoryboard(name: "aamarPay", bundle: Bundle.module).instantiateInitialViewController()! as? aamarPay
