@@ -80,10 +80,11 @@ open class aamarPay: UIViewController {
                   paymentCompletation!("Failed")
                 }
                 let vc = aamarPay.screen
-                webView?.removeFromSuperview();
-                webView = nil;
+               
                     vc?.dismiss(animated: true,completion: {
                         aamarPay.screen = nil;
+                        self.webView?.removeFromSuperview();
+                        self.webView = nil;
                                })
             }
            }
