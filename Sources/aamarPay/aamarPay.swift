@@ -81,10 +81,9 @@ open class aamarPay: UIViewController {
                 }
                 let vc = aamarPay.screen
                 webView?.removeFromSuperview();
-                
+                webView = nil;
                     vc?.dismiss(animated: true,completion: {
-                                   webView = nil;
-                                   aamarPay.screen = nil;
+                        aamarPay.screen = nil;
                                })
             }
            }
