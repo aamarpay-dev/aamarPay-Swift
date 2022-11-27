@@ -58,6 +58,7 @@ open class aamarPay: UIViewController {
             return
         }
         webView!.addObserver(self, forKeyPath: "URL", options: .new, context: nil)
+        webView!.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         webView!.load(URLRequest(url: url))
         
     }
@@ -100,7 +101,8 @@ open class aamarPay: UIViewController {
               let paymentFrontController = UINavigationController.init(rootViewController: aamarPay.screen!)
               aamarPay.screen!.paymentCompletation = completion
               paymentFrontController.modalPresentationStyle = .fullScreen
-              parent.present(paymentFrontController, animated: true)
+              let vc = aamarPay.screen
+              vc?.present(paymentFrontController, animated: true)
           }
         }
     }
